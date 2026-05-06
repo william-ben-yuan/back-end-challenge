@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Repositories\Tracks\TrackRepository;
+use App\Repositories\Tracks\TrackRepositoryInterface;
+use App\Services\Tracks\TrackService;
+use App\Services\Tracks\TrackServiceInterface;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -11,7 +15,15 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        //
+        $this->app->bind(
+            TrackRepositoryInterface::class,
+            TrackRepository::class
+        );
+
+        $this->app->bind(
+            TrackServiceInterface::class,
+            TrackService::class
+        );
     }
 
     /**
