@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Tracks\StoreTrackRequest;
-use App\Http\Requests\Tracks\UpdateTrackRequest;
 use App\Models\Track;
 use App\Services\Tracks\TrackServiceInterface;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
 class TrackController extends Controller
 {
     protected $trackService;
@@ -20,7 +18,7 @@ class TrackController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index(Request $request): JsonResponse
     {
         return response()->json([
             'tracks' => $this->trackService->find($request->all()),
@@ -30,35 +28,17 @@ class TrackController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreTrackRequest $request)
+    public function import(string $isrc): JsonResponse
     {
-        $track = $this->trackService->create($request->validated());
+        $track = $this->trackService->import($isrc);
         return response()->json($track, Response::HTTP_CREATED);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Track $track)
+    public function show(Track $track): JsonResponse
     {
         return response()->json($track);
     }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    // public function update(UpdateTrackRequest $request, Track $track)
-    // {
-    //     $this->trackService->update($track, $request->validated());
-    //     return response()->json($track);
-    // }
-
-    // /**
-    //  * Remove the specified resource from storage.
-    //  */
-    // public function destroy(Track $track)
-    // {
-    //     $this->trackService->delete($track);
-    //     return response()->json(null, Response::HTTP_NO_CONTENT);
-    // }
 }

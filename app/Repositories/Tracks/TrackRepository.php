@@ -3,15 +3,16 @@
 namespace App\Repositories\Tracks;
 
 use App\Models\Track;
+use Illuminate\Database\Eloquent\Collection;
 
 class TrackRepository implements TrackRepositoryInterface
 {
-    public function create(array $data)
+    public function create(array $data): Track
     {
         return Track::create($data);
     }
 
-    public function find(array $filters)
+    public function find(array $filters): Collection
     {
         $query = Track::query();
 

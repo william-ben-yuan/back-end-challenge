@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->id();
+            $table->uuid();
             $table->string('isrc')->unique();
             $table->string('title');
             $table->date('release_date');
