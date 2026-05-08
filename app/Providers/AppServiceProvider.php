@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\Artists\ArtistRepository;
+use App\Repositories\Artists\ArtistRepositoryInterface;
 use App\Repositories\Tracks\TrackRepository;
 use App\Repositories\Tracks\TrackRepositoryInterface;
 use App\Services\StreamingImporter\SpotifyImporterService;
@@ -17,11 +19,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
+        // Repositories
         $this->app->bind(
             TrackRepositoryInterface::class,
             TrackRepository::class
         );
 
+        $this->app->bind(
+            ArtistRepositoryInterface::class,
+            ArtistRepository::class
+        );
+
+        // Services
         $this->app->bind(
             TrackServiceInterface::class,
             TrackService::class

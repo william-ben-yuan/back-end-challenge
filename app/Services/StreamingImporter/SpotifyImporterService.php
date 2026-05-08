@@ -33,6 +33,7 @@ class SpotifyImporterService implements StreamingImporterServiceInterface
             ->get(config('services.spotify.api_url') . '/search', [
                 'q' => 'isrc:' . $isrc,
                 'type' => 'track',
+                'market' => 'BR', // Especifica o mercado para verificar disponibilidade
             ]);
 
         if ($response->failed()) {
@@ -49,12 +50,13 @@ class SpotifyImporterService implements StreamingImporterServiceInterface
         return [
             'isrc' => $isrc,
             'title' => $track['name'],
+            'artists' => $track['artists'],
             'release_date' => $track['album']['release_date'],
             'duration' => $track['duration_ms'],
             'album_thumbnail_url' => $track['album']['images'][0]['url'] ?? null,
-            'preview_url' => $track['preview_url'],
+            'preview_url' => $track['preview_url'] ?? null,
             'spotify_url' => $track['external_urls']['spotify'],
-            'is_available_in_brazil' => in_array('BR', $track['available_markets']),
+            'is_available_in_brazil' => $track['is_playable'] ?? false,
         ];
     }
 }

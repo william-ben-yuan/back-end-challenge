@@ -30,6 +30,7 @@ class TrackService implements TrackServiceInterface
         if (!$data) {
             return null; // Importação falhou, retorna null
         }
+        dd($data);
 
         return $this->repository->create($data);
     }
