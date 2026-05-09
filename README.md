@@ -20,3 +20,18 @@ docker compose exec app php artisan key:generate
 docker compose exec app php artisan migrate
 
 ```
+
+## Testando
+
+Crie o env de teste
+
+```
+cp .env.example .env.testing
+```
+
+Mude as seguintes variáveis
+
+```
+APP_ENV=testing
+DB_DATABASE=challenge_test
+```

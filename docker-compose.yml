@@ -27,18 +27,19 @@ services:
       MYSQL_DATABASE: challenge
       MYSQL_USER: admin
       MYSQL_PASSWORD: admin
-      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
       - mysqldata:/var/lib/mysql
+      - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   redis:
     image: redis:7-alpine
     container_name: redis
     ports:
       - "6379:6379"
-    command: ["redis-server", "--appendonly", "yes"]
+    command: [ "redis-server", "--appendonly", "yes" ]
     volumes:
       - redisdata:/data
 
