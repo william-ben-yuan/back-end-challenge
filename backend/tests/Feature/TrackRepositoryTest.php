@@ -23,24 +23,17 @@ class TrackRepositoryTest extends TestCase
 
     public function test_can_search_by_isrc(): void
     {
-        Track::factory()->create([
-            'title' => 'Track 1',
-            'isrc' => 'AAA111',
-        ]);
-
-        Track::factory()->create([
-            'title' => 'Track 2',
-            'isrc' => 'BBB222',
-        ]);
+        $track1 = Track::factory()->create();
+        $track2 = Track::factory()->create();
 
         $tracks = $this->repository
-            ->search(['isrc' => 'AAA111'])
+            ->search(['isrc' => $track1->isrc])
             ->get();
 
         $this->assertCount(1, $tracks);
 
         $this->assertEquals(
-            'AAA111',
+            $track1->isrc,
             $tracks->first()->isrc
         );
     }
