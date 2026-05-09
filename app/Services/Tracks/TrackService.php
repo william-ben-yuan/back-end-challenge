@@ -27,7 +27,7 @@ class TrackService implements TrackServiceInterface
     {
         // Checa se a faixa já existe para evitar importações duplicadas
         $existingTracks = $this->repository->search(['isrc' => $isrc]);
-        if ($existingTracks->isNotEmpty()) {
+        if ($existingTracks->exists()) {
             throw new TrackAlreadyExistsException(
                 "Track with ISRC {$isrc} already exists"
             );
@@ -47,7 +47,7 @@ class TrackService implements TrackServiceInterface
                 return $track;
             });
         } catch (\Exception $e) {
-            Log::error('Failed to import track with ISRC ' . $isrc . ': ' . $e->getMessage());
+            Log::error('Failed to import track: ' . $e->getMessage());
             throw new TrackImportFailedException(
                 "Failed to import track {$isrc} : " . $e->getMessage()
             );

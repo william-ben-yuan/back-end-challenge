@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Exceptions\TrackAlreadyExistsException;
+use App\Exceptions\TrackImportFailedException;
 use App\Models\Track;
 use App\Services\Tracks\TrackServiceInterface;
 use Illuminate\Http\JsonResponse;
@@ -35,8 +37,16 @@ class TrackController extends Controller
      */
     public function import(string $isrc): JsonResponse
     {
-        $track = $this->trackService->import($isrc);
-        return response()->json($track, Response::HTTP_CREATED);
+        try {
+            $track = $this->trackService->import($isrc);
+            return response()->json($track, Response::HTTP_CREATED);
+        } catch (TrackAlreadyExistsException $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_CONFLICT);
+        } catch (TrackImportFailedException $e) {
+            return response()->json(['error' => $e->getMessage()], Response::HTTP_BAD_REQUEST);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'An unexpected error occurred'], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     }
 
     /**
@@ -44,6 +54,6 @@ class TrackController extends Controller
      */
     public function show(Track $track): JsonResponse
     {
-        return response()->json($track);
+        return response()->json($track->load('artists'));
     }
 }

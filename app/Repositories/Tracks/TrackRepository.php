@@ -16,6 +16,7 @@ class TrackRepository implements TrackRepositoryInterface
     public function search(array $filters): Builder
     {
         return Track::query()
+            ->with('artists')
             ->when(
                 $filters['isrc'] ?? null,
                 fn($query, $isrc) => $query->where('isrc', $isrc)
