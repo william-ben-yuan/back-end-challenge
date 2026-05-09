@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 .tracks-page {
   @apply p-8;
@@ -38,4 +38,8 @@
 
 .tracks-table tbody tr {
   @apply border-b transition hover:bg-gray-50;
+}
+
+.tracks-thumbnail {
+  @apply w-12 h-12 object-cover rounded;
 }

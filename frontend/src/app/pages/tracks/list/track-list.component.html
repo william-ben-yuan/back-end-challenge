@@ -1,27 +1,27 @@
 <div class="tracks-page">
   <div class="tracks-header">
-    <h1 class="tracks-title">
-      Tracks
-    </h1>
-    <button
-      routerLink="/create"
-      class="create-button"
-    >
-      Criar track
-    </button>
+    <h1 class="tracks-title">Tracks</h1>
+    <button routerLink="/create" class="create-button">Criar track</button>
   </div>
   <div class="table-wrapper">
     <table class="tracks-table">
       <thead>
         <tr>
-        
+          <th>Thumbnail</th>
           <th>ISRC</th>
           <th>Título</th>
           <th>Artista</th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let track of tracks">
+        <tr *ngFor="let track of tracks()?.data">
+          <td>
+            <img
+              [src]="track.album_thumbnail_url"
+              alt="{{ track.title }}"
+              class="tracks-thumbnail"
+            />
+          </td>
           <td>
             {{ track.isrc }}
           </td>
@@ -29,7 +29,7 @@
             {{ track.title }}
           </td>
           <td>
-            {{ track.artists ? track.artists.map(artist => artist.name).join(', ') : '' }}
+            {{ track.artists ? track.artists.map((artist) => artist.name).join(', ') : '' }}
           </td>
         </tr>
       </tbody>

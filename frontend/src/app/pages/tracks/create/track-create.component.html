@@ -1,0 +1,14 @@
+<div class="create-page">
+  <h1 class="title">Criar Track</h1>
+
+  <input type="text" placeholder="ISRC" [(ngModel)]="isrc" class="input" />
+
+  <button (click)="submit()" [disabled]="loading" class="button">
+    {{ loading ? 'Salvando...' : 'Salvar' }}
+  </button>
+
+  <p *ngIf="error && !loading" class="error">
+    teste
+    {{ error }}
+  </p>
+</div>
