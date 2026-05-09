@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Unit\Services\Tracks;
+namespace Tests\Unit;
 
 use App\Exceptions\TrackAlreadyExistsException;
 use App\Models\Track;
@@ -13,11 +13,19 @@ use Tests\TestCase;
 
 class TrackServiceTest extends TestCase
 {
-    const TRACK = [
-        'title' => 'Test Track',
-        'isrc' => 'ABC123',
-        'artists' => [],
-    ];
+    private array $track;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->track = [
+            'title' => $this->faker->sentence(3),
+            'isrc' => $this->faker->unique()->regexify('[A-Z]{3}[0-9]{3}'),
+            'artists' => [],
+        ];
+    }
+
     public function test_import_throws_exception_when_track_already_exists(): void
     {
         $repository = Mockery::mock(TrackRepositoryInterface::class);
@@ -27,7 +35,7 @@ class TrackServiceTest extends TestCase
         $repository
             ->shouldReceive('search')
             ->once()
-            ->with(['isrc' => self::TRACK['isrc']])
+            ->with(['isrc' => $this->track['isrc']])
             ->andReturn($builder);
 
         $builder
@@ -39,7 +47,7 @@ class TrackServiceTest extends TestCase
 
         $this->expectException(TrackAlreadyExistsException::class);
 
-        $service->import(self::TRACK['isrc']);
+        $service->import($this->track['isrc']);
     }
 
     public function test_import_creates_track_successfully(): void
@@ -49,8 +57,8 @@ class TrackServiceTest extends TestCase
         $builder = Mockery::mock(Builder::class);
 
         $track = new Track([
-            'title' => 'Test Track',
-            'isrc' => 'ABC123',
+            'title' => $this->track['title'],
+            'isrc' => $this->track['isrc'],
         ]);
 
         $repository
@@ -66,11 +74,11 @@ class TrackServiceTest extends TestCase
         $importer
             ->shouldReceive('import')
             ->once()
-            ->with(self::TRACK['isrc'])
+            ->with($this->track['isrc'])
             ->andReturn([
-                'title' => self::TRACK['title'],
-                'isrc' => self::TRACK['isrc'],
-                'artists' => self::TRACK['artists'],
+                'title' => $this->track['title'],
+                'isrc' => $this->track['isrc'],
+                'artists' => $this->track['artists'],
             ]);
 
         $repository
@@ -80,9 +88,9 @@ class TrackServiceTest extends TestCase
 
         $service = new TrackService($repository, $importer);
 
-        $result = $service->import(self::TRACK['isrc']);
+        $result = $service->import($this->track['isrc']);
 
         $this->assertInstanceOf(Track::class, $result);
-        $this->assertEquals(self::TRACK['isrc'], $result->isrc);
+        $this->assertEquals($this->track['isrc'], $result->isrc);
     }
 }
