@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+.tracks-page {
+  @apply p-8;
+}
+
+.tracks-header {
+  @apply flex items-center justify-between mb-6;
+}
+
+.tracks-title {
+  @apply text-2xl font-bold;
+}
+
+.create-button {
+  @apply bg-black text-white px-4 py-2 rounded-lg transition hover:opacity-80;
+}
+
+.table-wrapper {
+  @apply overflow-x-auto border rounded-xl;
+}
+
+.tracks-table {
+  @apply min-w-full bg-white;
+}
+
+.tracks-table thead {
+  @apply bg-gray-100 border-b;
+}
+
+.tracks-table th {
+  @apply text-left px-6 py-4 font-semibold;
+}
+
+.tracks-table td {
+  @apply px-6 py-4;
+}
+
+.tracks-table tbody tr {
+  @apply border-b transition hover:bg-gray-50;
+}

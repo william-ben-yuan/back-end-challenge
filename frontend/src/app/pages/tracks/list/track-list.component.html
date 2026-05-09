@@ -1,0 +1,38 @@
+<div class="tracks-page">
+  <div class="tracks-header">
+    <h1 class="tracks-title">
+      Tracks
+    </h1>
+    <button
+      routerLink="/create"
+      class="create-button"
+    >
+      Criar track
+    </button>
+  </div>
+  <div class="table-wrapper">
+    <table class="tracks-table">
+      <thead>
+        <tr>
+        
+          <th>ISRC</th>
+          <th>Título</th>
+          <th>Artista</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let track of tracks">
+          <td>
+            {{ track.isrc }}
+          </td>
+          <td>
+            {{ track.title }}
+          </td>
+          <td>
+            {{ track.artists ? track.artists.map(artist => artist.name).join(', ') : '' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
