@@ -7,9 +7,10 @@ use App\Services\Tracks\TrackServiceInterface;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+
 class TrackController extends Controller
 {
-    protected $trackService;
+    protected TrackServiceInterface $trackService;
 
     public function __construct(TrackServiceInterface $trackService)
     {
@@ -20,8 +21,12 @@ class TrackController extends Controller
      */
     public function index(Request $request): JsonResponse
     {
+        $perPage = $request->input('per_page', 15);
+        $page = $request->input('page', 1);
+        $filters = $request->only(['isrc', 'title']);
+
         return response()->json([
-            'tracks' => $this->trackService->find($request->all()),
+            'tracks' => $this->trackService->paginate($filters, $perPage, $page),
         ]);
     }
 

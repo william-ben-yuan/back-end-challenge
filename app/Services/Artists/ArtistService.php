@@ -6,7 +6,7 @@ use App\Repositories\Artists\ArtistRepositoryInterface;
 
 class ArtistService
 {
-    protected $artistRepository;
+    protected ArtistRepositoryInterface $artistRepository;
 
     public function __construct(ArtistRepositoryInterface $artistRepository)
     {

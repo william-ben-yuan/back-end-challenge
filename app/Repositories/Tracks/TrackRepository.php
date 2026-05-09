@@ -3,7 +3,8 @@
 namespace App\Repositories\Tracks;
 
 use App\Models\Track;
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class TrackRepository implements TrackRepositoryInterface
 {
@@ -12,18 +13,21 @@ class TrackRepository implements TrackRepositoryInterface
         return Track::create($data);
     }
 
-    public function find(array $filters): Collection
+    public function search(array $filters): Builder
     {
-        $query = Track::query();
+        return Track::query()
+            ->when(
+                $filters['isrc'] ?? null,
+                fn($query, $isrc) => $query->where('isrc', $isrc)
+            )
+            ->when(
+                $filters['title'] ?? null,
+                fn($query, $title) => $query->where('title', 'like', "%{$title}%")
+            );
+    }
 
-        if (isset($filters['isrc'])) {
-            $query->where('isrc', $filters['isrc']);
-        }
-
-        if (isset($filters['title'])) {
-            $query->where('title', 'like', '%' . $filters['title'] . '%');
-        }
-
-        return $query->get();
+    public function paginate(array $filters, int $perPage = 15, int $page = 1): LengthAwarePaginator
+    {
+        return $this->search($filters)->paginate($perPage, ['*'], 'page', $page);
     }
 }

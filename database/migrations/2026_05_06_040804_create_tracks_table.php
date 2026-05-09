@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tracks', function (Blueprint $table) {
-            $table->uuid();
+            $table->uuid('id')->primary();
             $table->string('isrc')->unique();
             $table->string('title');
             $table->date('release_date');
             $table->integer('duration');
             $table->string('album_thumbnail_url');
-            $table->string('preview_url');
+            $table->string('preview_url')->nullable();
             $table->string('spotify_url');
             $table->boolean('is_available_in_brazil');
             $table->timestamps();
