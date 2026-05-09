@@ -27,16 +27,15 @@ class TrackController extends Controller
         $page = $request->input('page', 1);
         $filters = $request->only(['isrc', 'title']);
 
-        return response()->json([
-            'tracks' => $this->trackService->paginate($filters, $perPage, $page),
-        ]);
+        return response()->json($this->trackService->paginate($filters, $perPage, $page));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function import(string $isrc): JsonResponse
+    public function import(Request $request): JsonResponse
     {
+        $isrc = $request->input('isrc');
         try {
             $track = $this->trackService->import($isrc);
             return response()->json($track, Response::HTTP_CREATED);
