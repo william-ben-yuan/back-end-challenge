@@ -26,8 +26,9 @@ class TrackController extends Controller
         $perPage = $request->input('per_page', 15);
         $page = $request->input('page', 1);
         $filters = $request->only(['isrc', 'title']);
+        $order = $request->input('order', null);
 
-        return response()->json($this->trackService->paginate($filters, $perPage, $page));
+        return response()->json($this->trackService->paginate($filters, $order, $perPage, $page));
     }
 
     /**

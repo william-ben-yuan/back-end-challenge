@@ -9,6 +9,6 @@ use Illuminate\Pagination\LengthAwarePaginator;
 interface TrackRepositoryInterface
 {
     public function create(array $data): Track;
-    public function search(array $filters): Builder;
-    public function paginate(array $filters, int $perPage = 15, int $page = 1): LengthAwarePaginator;
+    public function search(array $filters, ?array $order = null): Builder;
+    public function paginate(array $filters, ?array $order = null, int $perPage = 15, int $page = 1): LengthAwarePaginator;
 }

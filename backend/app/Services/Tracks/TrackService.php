@@ -59,9 +59,9 @@ class TrackService implements TrackServiceInterface
         return $this->repository->create($data);
     }
 
-    public function paginate(array $filters, int $perPage = 15, int $page = 1): LengthAwarePaginator
+    public function paginate(array $filters, ?array $order = null, int $perPage = 15, int $page = 1): LengthAwarePaginator
     {
-        return $this->repository->paginate($filters, $perPage, $page);
+        return $this->repository->paginate($filters, $order, $perPage, $page);
     }
 
     private function syncArtists(Track $track, array $artists): void
