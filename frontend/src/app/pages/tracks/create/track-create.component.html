@@ -7,7 +7,7 @@
 
   <input type="text" placeholder="ISRC" [(ngModel)]="isrc" class="input" />
 
-  <button (click)="submit()" [disabled]="loading()" class="button">
+  <button (click)="submit()" [disabled]="loading()" class="button-full">
     {{ loading() ? 'Salvando...' : 'Salvar' }}
   </button>
 

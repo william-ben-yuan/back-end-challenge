@@ -3,5 +3,9 @@
 @import 'tailwindcss';
 
 .button {
-  @apply bg-black text-white px-4 py-2 rounded-lg transition hover:opacity-80;
+  @apply bg-black text-white px-4 py-2 rounded-lg transition hover:opacity-80 cursor-pointer;
+}
+
+.button-full {
+  @apply w-full mt-4 bg-black text-white py-2 rounded-lg hover:opacity-80 disabled:opacity-50 cursor-pointer;
 }
