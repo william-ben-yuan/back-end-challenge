@@ -1,10 +1,10 @@
-import { Artist } from "./artist.model";
+import { Artist } from './artist.model';
 
 export interface Track {
   id: string;
   isrc: string;
   title: string;
-  releaseDate: string;
+  release_date: string;
   duration: number;
   artists: Artist[] | null;
   album_thumbnail_url: string;

@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { API_URL } from '../core/config/api';
 import { Track } from '@app/models/track.model';
-import { throwError } from 'rxjs/internal/observable/throwError';
-import { catchError } from 'rxjs/internal/operators/catchError';
 import { Pagination } from '@app/models/pagination.model';
 
 @Injectable({

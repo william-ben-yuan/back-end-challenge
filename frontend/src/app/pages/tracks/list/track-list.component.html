@@ -4,13 +4,17 @@
     <button routerLink="/create" class="create-button">Criar track</button>
   </div>
   <div class="table-wrapper">
-    <table class="tracks-table">
+    <table class="tracks-table" *ngIf="tracks()">
       <thead>
         <tr>
           <th>Thumbnail</th>
-          <th>ISRC</th>
+          <th>Data de lançamento</th>
           <th>Título</th>
           <th>Artista</th>
+          <th>Duração</th>
+          <th>Prévia</th>
+          <th></th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -23,7 +27,7 @@
             />
           </td>
           <td>
-            {{ track.isrc }}
+            {{ track.release_date | date: 'dd/MM/yyyy' }}
           </td>
           <td>
             {{ track.title }}
@@ -31,8 +35,31 @@
           <td>
             {{ track.artists ? track.artists.map((artist) => artist.name).join(', ') : '' }}
           </td>
+          <td>
+            {{ track.duration | date: 'mm:ss' }}
+          </td>
+          <td>
+            <audio *ngIf="track.preview_url" [src]="track.preview_url" controls></audio>
+          </td>
+          <td>
+            <a
+              *ngIf="track.spotify_url"
+              [href]="track.spotify_url"
+              target="_blank"
+              class="spotify-link"
+              >Abra no Spotify</a
+            >
+          </td>
+          <td>
+            {{ track.is_available_in_brazil ? 'Disponível no Brasil' : '' }}
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
+  <ng-template #noTracks>
+    <p *ngIf="!loading() && error()">{{ error() }}</p>
+    <p *ngIf="!loading() && !error()">Nenhuma track encontrada.</p>
+    <p *ngIf="loading()">Carregando...</p>
+  </ng-template>
 </div>

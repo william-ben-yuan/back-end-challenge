@@ -1,11 +1,14 @@
 # Desafio OneRPM
 
-## Começando
+## Backend
+
+### Começando
 
 Dentro da raiz do projeto no terminal rodar
 
 ```
 cp .env.example .env
+# preencha as keys do Spotify
 
 # iniciar o container
 docker compose up -d --build
@@ -21,7 +24,7 @@ docker compose exec app php artisan migrate
 
 ```
 
-## Testando
+### Testando
 
 Crie o env de teste
 
@@ -34,4 +37,10 @@ Mude as seguintes variáveis
 ```
 APP_ENV=testing
 DB_DATABASE=challenge_test
+# preencha também as keys do spotify
 ```
+
+### Decisões técnicas
+
+- Utilizei Redis como cache para armazenar o token de autenticação do Spotify
+- Por se tratar de uma importação simples e como não estava especificado no desafio, não utilizei filas, mas seria o ideal caso houvesse importação em massa

@@ -17,18 +17,24 @@ export class TrackListComponent implements OnInit {
   private tracksService = inject(TracksService);
 
   tracks = signal<Pagination<Track> | null>(null); // Sinal para armazenar os dados de tracks pois está zoneless
+  error = signal<string>('');
+  loading = signal<boolean>(false);
 
   ngOnInit(): void {
     this.loadTracks();
   }
 
   loadTracks(): void {
+    this.error.set('');
+    this.loading.set(true);
     this.tracksService.getTracks().subscribe({
       next: (response) => {
         this.tracks.set(response);
+        this.loading.set(false);
       },
       error: (error) => {
-        console.error('Erro ao carregar tracks:', error);
+        this.error.set('Erro ao carregar tracks');
+        this.loading.set(false);
       },
     });
   }

@@ -9,6 +9,7 @@ class SpotifyImporterService implements StreamingImporterServiceInterface
 {
     public function getAccessToken(): string
     {
+        // Utiliza cache para armazenar o token de acesso por 3500 segundos (pouco menos de 1 hora), para evitar chamadas desnecessárias à API de autenticação do Spotify
         return Cache::remember('spotify_access_token', now()->addSeconds(3500), function () {
             $response = Http::asForm()->post(
                 config('services.spotify.auth_url') . '/token',

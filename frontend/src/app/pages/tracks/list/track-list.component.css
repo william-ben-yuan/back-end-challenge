@@ -43,3 +43,7 @@
 .tracks-thumbnail {
   @apply w-12 h-12 object-cover rounded;
 }
+
+.spotify-link {
+  @apply text-green-600 hover:underline;
+}
