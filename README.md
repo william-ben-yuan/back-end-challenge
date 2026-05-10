@@ -45,3 +45,10 @@ DB_DATABASE=challenge_test
 - Utilizei Redis como cache para armazenar o token de autenticação do Spotify
 - Por se tratar de uma importação simples e como não estava especificado no desafio, não utilizei filas, mas seria o ideal caso houvesse importação em massa
 - Parece que o Spotify removeu o preview_url, por isso provavelmente não irá aparecer no front
+
+## Frontend
+
+### Decisões técnicas
+
+- Não criei um componente base para tabela, mas seria uma boa, porém tomaria muito tempo tornar ele genérico
+- Simplifiquei as mensagens de erro, mas o ideal seria ter um alert/snackbar
