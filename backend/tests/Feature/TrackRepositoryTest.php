@@ -66,7 +66,7 @@ class TrackRepositoryTest extends TestCase
     {
         Track::factory()->count(30)->create();
 
-        $result = $this->repository->paginate([], 15);
+        $result = $this->repository->paginate([], null, 15);
 
         $this->assertCount(15, $result->items());
 
