@@ -12,8 +12,8 @@ export class TracksService {
 
   constructor(private http: HttpClient) {}
 
-  getTracks() {
-    return this.http.get<Pagination<Track>>(this.api);
+  getTracks($page: number = 1) {
+    return this.http.get<Pagination<Track>>(`${this.api}?page=${$page}`);
   }
 
   importTrack(data: { isrc: string }) {

@@ -1,0 +1,33 @@
+@import 'tailwindcss';
+
+.table-wrapper {
+  @apply overflow-x-auto border rounded-xl;
+}
+
+.tracks-table {
+  @apply min-w-full bg-white;
+}
+
+.tracks-table thead {
+  @apply bg-gray-100 border-b;
+}
+
+.tracks-table th {
+  @apply text-left px-6 py-4 font-semibold;
+}
+
+.tracks-table td {
+  @apply px-6 py-4;
+}
+
+.tracks-table tbody tr {
+  @apply border-b transition hover:bg-gray-50;
+}
+
+.tracks-thumbnail {
+  @apply w-12 h-12 object-cover rounded;
+}
+
+.spotify-link {
+  @apply text-green-600 hover:underline;
+}

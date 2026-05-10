@@ -1,0 +1,15 @@
+<div class="flex items-center gap-2 mt-4">
+  <button (click)="change(currentPage() - 1)" [disabled]="currentPage() === 1" class="button">
+    Anterior
+  </button>
+
+  <span> Página {{ currentPage() }} de {{ lastPage() }} </span>
+
+  <button
+    (click)="change(currentPage() + 1)"
+    [disabled]="currentPage() === lastPage()"
+    class="button"
+  >
+    Próxima
+  </button>
+</div>

@@ -1,0 +1,55 @@
+<div class="table-wrapper">
+  <table class="tracks-table" *ngIf="tracks">
+    <thead>
+      <tr>
+        <th>Thumbnail</th>
+        <th>Data</th>
+        <th>Título</th>
+        <th>Artista</th>
+        <th>Duração</th>
+        <th>Prévia</th>
+        <th>Spotify</th>
+        <th>Brasil</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let track of tracks.data">
+        <td>
+          <img [src]="track.album_thumbnail_url" [alt]="track.title" class="tracks-thumbnail" />
+        </td>
+        <td>
+          {{ track.release_date | date: 'dd/MM/yyyy' : 'UTC' }}
+        </td>
+        <td>
+          {{ track.title }}
+        </td>
+        <td>
+          {{ track.artists ? track.artists.map((a) => a.name).join(', ') : '' }}
+        </td>
+        <td>
+          {{ track.duration }}
+        </td>
+
+        <td>
+          <audio *ngIf="track.preview_url" [src]="track.preview_url" controls></audio>
+        </td>
+
+        <td>
+          <a
+            *ngIf="track.spotify_url"
+            [href]="track.spotify_url"
+            target="_blank"
+            class="spotify-link"
+          >
+            Spotify
+          </a>
+        </td>
+
+        <td>
+          {{ track.is_available_in_brazil ? 'Disponível' : '' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

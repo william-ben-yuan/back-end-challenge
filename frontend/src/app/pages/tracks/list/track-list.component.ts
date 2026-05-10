@@ -5,11 +5,13 @@ import { RouterModule } from '@angular/router';
 import { TracksService } from '@services/track.service';
 import { Track } from '@models/track.model';
 import { Pagination } from '@app/models/pagination.model';
+import { PaginationComponent } from '@app/components/pagination/pagination.component';
+import { TracksTableComponent } from '@app/components/table/track-table.component';
 
 @Component({
   selector: 'app-tracks-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, PaginationComponent, TracksTableComponent],
   templateUrl: './track-list.component.html',
   styleUrls: ['./track-list.component.css'],
 })
@@ -24,10 +26,10 @@ export class TrackListComponent implements OnInit {
     this.loadTracks();
   }
 
-  loadTracks(): void {
+  loadTracks(page: number = 1): void {
     this.error.set('');
     this.loading.set(true);
-    this.tracksService.getTracks().subscribe({
+    this.tracksService.getTracks(page).subscribe({
       next: (response) => {
         this.tracks.set(response);
         this.loading.set(false);
