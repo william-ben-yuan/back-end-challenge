@@ -28,7 +28,6 @@ export class TrackCreateComponent implements OnInit {
   submit() {
     this.error.set('');
     this.loading.set(true);
-    console.log('Importando track com ISRC:', this.isrc);
 
     this.service.importTrack({ isrc: this.isrc }).subscribe({
       next: () => {
